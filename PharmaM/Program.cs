@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PharmaM.Core.Contracts;
+using PharmaM.Core.Services;
 using PharmaM.Data;
-using PharmaM.Infrastructure.Data.SeedDb;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddControllersWithViews();
 
 //Configuring Services
-//builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService ,ProductService>();
 //builder.Services.AddScoped<ICategoryService, CategoryService>();
 //builder.Services.AddScoped<IShoppingCartsService, ShoppingCartsService>();
 //builder.Services.AddScoped<IOrdersService, OrdersService>();

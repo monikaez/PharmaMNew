@@ -1,11 +1,9 @@
-﻿@* @using PharmaM.Core.Models.Product;
+﻿@using PharmaM.Core.Models.Product;
 
-@model IEnumerable<Product> *@
-
+@model IEnumerable<Product> 
 
 @{
     ViewData["Title"] = "Home Page";
-
 }
 
 
@@ -20,16 +18,16 @@
 
         <div class="row">
 
-           @*  @foreach (var product in Model.Take(6))
+          @*  @foreach (var product in Model.Take(6))
             {
                 <div class="col-sm-6 col-lg-4 text-center item mb-4">
                     <img src="@Url.Content(product.ImageURL)" alt="Image">
-                    <a asp-action="SingleProductViewModel" asp-route-id="@product.Id">
+                    <a asp-action="SingleProduct" asp-route-id="@product.Id">
                         <h3 class="text-dark">@product.Name</h3>
                     </a>
                     <p class="price">BGN @product.Price</p>
                 </div>
-            } *@
+            }  *@
         </div>
 
         <div class="row mt-5">

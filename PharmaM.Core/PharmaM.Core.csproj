@@ -20,9 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Contracts\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\PharmaM.Infrastructure\PharmaM.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
