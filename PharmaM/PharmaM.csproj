@@ -27,4 +27,8 @@
     <ProjectReference Include="..\PharmaM.Infrastructure\PharmaM.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Product\" />
+  </ItemGroup>
+
 </Project>
