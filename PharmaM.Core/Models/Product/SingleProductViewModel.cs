@@ -20,6 +20,7 @@ public class SingleProductViewModel
     public string Description { get; set; } = string.Empty;
 
     [Required]
+    [Range(0, int.MaxValue)]
     public decimal Price { get; set; }
 
     [Required]

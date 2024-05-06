@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PharmaM.Core.Services;
 using PharmaM.Models;
 using System.Diagnostics;
 
@@ -27,6 +28,7 @@ namespace PharmaM.Controllers
             return View();
         }
 
+        
         public IActionResult Privacy()
         {
             return View();

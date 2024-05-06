@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PharmaM.Core.Contracts;
+using PharmaM.Core.Models.Product;
 using PharmaM.Data;
 using PharmaM.Infrastructure.Data.Models;
 
@@ -13,6 +14,24 @@ namespace PharmaM.Core.Services
         {
             this.context = context;
         }
+
+        public async Task AddProductAsync(SingleProductViewModel model)
+        {
+            Product newProduct = new()
+            {
+                Name = model.Name,
+                ImageURL = model.ImagePath,
+                Description = model.Description,
+                Price = model.Price,
+                NeedsPrescription = model.NeedsPrescription,
+                CategoryId = model.CategoryId,
+               // Category = model.CategoryName
+               
+            };
+            await context.Products.AddAsync(newProduct);
+            await context.SaveChangesAsync();
+        }
+
 
         public async Task<IEnumerable<Product>> Filter(int? minPrice, int? maxPrice)
         {
@@ -33,7 +52,6 @@ namespace PharmaM.Core.Services
         public async  Task<Product> GetProductById(int id)
         {
             var data = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
-
             return data;
         }
 

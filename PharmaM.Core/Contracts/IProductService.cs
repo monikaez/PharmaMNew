@@ -1,4 +1,5 @@
-﻿using PharmaM.Infrastructure.Data.Models;
+﻿using PharmaM.Core.Models.Product;
+using PharmaM.Infrastructure.Data.Models;
 
 namespace PharmaM.Core.Contracts
 {
@@ -9,5 +10,6 @@ namespace PharmaM.Core.Contracts
         Task<IEnumerable<Product>> Search(string searchString);
         Task<IEnumerable<Product>> Sort(string order);
         Task<IEnumerable<Product>> Filter(int? minPrice, int? maxPrice);
+        Task AddProductAsync(SingleProductViewModel model);
     }
 }

@@ -1,0 +1,40 @@
+﻿@using PharmaM.Core.Models.Product;
+
+@model IEnumerable<Product>
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="site-section">
+    <div class="container">
+
+        <div class="row">
+            <div class="title-section text-center col-12">
+                <h2 class="text-uppercase">Popular Products</h2>
+            </div>
+        </div>
+
+        <div class="row">
+
+            @foreach (var product in Model.Take(6))
+            {
+                <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                   @*  <img src="@Url.Content(product.ImageURL)" alt="Image"> *@
+                    <a asp-action="SingleProductViewModel" asp-route-id="@product.Id">
+                        <h3 class="text-dark">@product.Name</h3>
+                    </a>
+                    <p class="price">BGN @product.Price</p>
+                </div>
+            }
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <a asp-action="Shop" class="btn btn-primary px-4 py-3">View All Products</a>
+            </div>
+        </div>
+    </div>
+</div>

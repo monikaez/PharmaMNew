@@ -48,7 +48,6 @@
                                 <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                                 <li><a asp-controller="Product" asp-action="Add">Create Product</a></li>
  
-                                @*<partial name="_Identity.cshtml"> </partial>*@
                             </ul>
                         </nav>
                     </div>
@@ -63,6 +62,7 @@
                             <span class="icon-menu"></span>
                         </a>
                         <a asp-controller="Home" asp-action="User"><span class="icons-btn d-inline-block pl-1"><i class="fas fa-user"></i></span></a>
+                       @*  <partial name="_Identity.cshtml"> </partial> *@
                     </div>
 
                 </div>
@@ -81,7 +81,7 @@
                             <h2 class="sub-title">Effective Medicine, New Medicine Everyday</h2>
                             <h1>Welcome To PharmaM</h1>
                             <p>
-                                <a asp-controller="Home" asp-action="Shop" class="btn btn-primary px-5 py-3">Shop Now</a>
+                                <a asp-controller="Product" asp-action="Shop" class="btn btn-primary px-5 py-3">Shop Now</a>
                             </p>
                         </div>
                     </div>
