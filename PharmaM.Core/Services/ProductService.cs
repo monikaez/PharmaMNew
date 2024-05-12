@@ -15,23 +15,41 @@ namespace PharmaM.Core.Services
             this.context = context;
         }
 
-        public async Task AddProductAsync(SingleProductViewModel model)
+        public async Task AddProductAsync(AddProductViewModel model)
         {
-            Product newProduct = new()
+            Product newProduct = new Product
             {
                 Name = model.Name,
                 ImageURL = model.ImagePath,
-                Description = model.Description,
-                Price = model.Price,
-                NeedsPrescription = model.NeedsPrescription,
-                CategoryId = model.CategoryId,
-               // Category = model.CategoryName
-               
+                Description=model.Description,
+                NeedsPrescription=model.NeedsPrescription,
+                Price=model.Price,
+                //Category = model.Categories.Name,
+                CategoryId=model.CategoryId,
             };
+          
             await context.Products.AddAsync(newProduct);
             await context.SaveChangesAsync();
         }
 
+        
+        public  async Task EditProductAsync(SingleProductViewModel model, int id)
+        {
+            var product = await context.Products.FindAsync(id);
+            if (product != null)
+            {
+                product.Name = model.Name;
+                product.Price = model.Price;
+                product.NeedsPrescription = model.NeedsPrescription;
+                product.ImageURL = model.ImagePath;
+                product.Description = model.Description;
+                product.CategoryId = model.CategoryId;
+                product.Category.Name = model.CategoryName;
+              
+                await context.SaveChangesAsync();
+            }
+        }
+       
 
         public async Task<IEnumerable<Product>> Filter(int? minPrice, int? maxPrice)
         {
@@ -51,9 +69,21 @@ namespace PharmaM.Core.Services
 
         public async  Task<Product> GetProductById(int id)
         {
-            var data = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var data= await context.Products
+                .Where(p => p.Id == id)
+                .Select(p=> new Product()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    ImageURL = p.ImageURL,
+                    Description = p.Description,
+                    CategoryId = p.CategoryId
+                })
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
             return data;
         }
+
 
         public async Task<IEnumerable<Product>> Search(string searchString)
         {

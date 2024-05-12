@@ -19,13 +19,14 @@ namespace PharmaM.Controllers
         }
        
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
-            return View();
+            var model = new AddProductViewModel();
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(SingleProductViewModel model)
+        public async Task<IActionResult> Add(AddProductViewModel model)
         {
 
             if (ModelState.IsValid == false)
@@ -64,6 +65,29 @@ namespace PharmaM.Controllers
             return View("Shop", data);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await productService.GetProductById(id);
+            if (product == null)
+            {
+                ModelState.AddModelError(" ", "Invalid product!");
+            }
 
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(SingleProductViewModel model,int id)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+            await productService.EditProductAsync(model, id);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
+

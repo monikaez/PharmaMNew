@@ -28,4 +28,8 @@
     <ProjectReference Include="..\PharmaM.Infrastructure\PharmaM.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\NewFolder\" />
+  </ItemGroup>
+
 </Project>
