@@ -78,14 +78,20 @@ namespace PharmaM.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(SingleProductViewModel model,int id)
+        public async Task<IActionResult> Edit(SingleProductViewModel model)
         {
             if (ModelState.IsValid == false)
             {
                 return View(model);
             }
-            await productService.EditProductAsync(model, id);
+            await productService.EditProductAsync(model);
+          
+            return RedirectToAction(nameof(Index));
+        }
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            await productService.DeleteProductAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

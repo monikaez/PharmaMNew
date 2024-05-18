@@ -21,8 +21,12 @@ namespace PharmaM.Core.Services
 
         public async Task AddCategoryAsync(CategoryViewModel model)
         {
-            var newCategory = new Category();
-            newCategory.Name = model.Name;
+            Category newCategory = new Category
+            {
+                Id = model.Id,
+                Name = model.Name
+            };
+
             await context.AddAsync(newCategory);
             await context.SaveChangesAsync();
         }

@@ -1,4 +1,7 @@
 ﻿@model CategoryViewModel
+@{
+    ViewData["Title"] = "Add Category";
+}
 
 
 <form asp-action="Add" method="post">
@@ -12,7 +15,6 @@
             <span asp-validation-for="@Model.Name" class="text-danger"></span>
         </div>
       
-
         <br />
         <button class="btn btn-primary btn-outline-primary btn-light">Create</button>
         <a asp-controller="Category" asp-action="Add" class="btn btn-outline-secondary">Back To List</a>

@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using static PharmaM.Infrastructure.Data.Common.DataConstants;
+﻿using PharmaM.Core.Models.Category;
+using System.ComponentModel.DataAnnotations;
 using static PharmaM.Core.Constants.MessageConstants;
-using PharmaM.Core.Models.Category;
+using static PharmaM.Infrastructure.Data.Common.DataConstants;
 
 namespace PharmaM.Core.Models.Product
 {
@@ -25,7 +25,7 @@ namespace PharmaM.Core.Models.Product
         [Required]
         public bool NeedsPrescription { get; set; }
 
-        [Range(1, int.MaxValue)]
+        [Required(ErrorMessage = RequiredMessage)]
         public int CategoryId { get; set; }
 
         public IEnumerable<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();

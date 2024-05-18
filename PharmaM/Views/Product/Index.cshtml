@@ -23,7 +23,7 @@
             {
                 <div class="col-sm-6 col-lg-4 text-center item mb-4">
                     <span class="tag">Sale</span>
-                    <a asp-action="SingleProductViewModel" asp-route-id="@item.Id">
+                    <a asp-action="SingleProduct" asp-route-id="@item.Id">
                         <img src="@item.ImageURL" width="180" height="220" text-align="center" asp-append-version="true">
                         <h3 class="text-dark">@item.Name</h3>
                         <p class="price">BGN @item.Price</p>

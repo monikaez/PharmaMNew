@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static PharmaM.Infrastructure.Data.Common.DataConstants;
 using static PharmaM.Core.Constants.MessageConstants;
+using PharmaM.Core.Models.Category;
+
 namespace PharmaM.Core.Models.Product;
 
 public class SingleProductViewModel
@@ -28,6 +30,6 @@ public class SingleProductViewModel
 
     [Required]
     public int CategoryId { get; set; }
-    public string CategoryName { get; set; } = string.Empty;
+    public List<CategoryViewModel> CategoryName { get; set; } = new List<CategoryViewModel>();
 
 }

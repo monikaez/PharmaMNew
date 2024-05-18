@@ -10,6 +10,6 @@ namespace PharmaM.Core.Models.Category
 
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(CategoryNameMaxLength, MinimumLength = CategoryNameMinLength, ErrorMessage = LengthMessage)]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = string.Empty;
     }
 }

@@ -11,6 +11,8 @@ namespace PharmaM.Core.Contracts
         Task<IEnumerable<Product>> Sort(string order);
         Task<IEnumerable<Product>> Filter(int? minPrice, int? maxPrice);
         Task AddProductAsync(AddProductViewModel model);
-        Task EditProductAsync(SingleProductViewModel model,int id);
+        Task EditProductAsync(SingleProductViewModel model);
+        Task DeleteProductAsync(int id);
+        
     }
 }

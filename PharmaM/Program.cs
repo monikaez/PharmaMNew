@@ -26,7 +26,7 @@ builder.Services.AddControllersWithViews();
 
 //Configuring Services
 builder.Services.AddScoped<IProductService ,ProductService>();
-//builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 //builder.Services.AddScoped<IShoppingCartsService, ShoppingCartsService>();
 //builder.Services.AddScoped<IOrdersService, OrdersService>();
 

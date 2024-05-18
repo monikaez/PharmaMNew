@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PharmaM.Core.Contracts;
 using PharmaM.Core.Models.Product;
+using PharmaM.Core.Models.Category;
 using PharmaM.Data;
 using PharmaM.Infrastructure.Data.Models;
 
 namespace PharmaM.Core.Services
 {
-    public class ProductService:IProductService
+    public class ProductService : IProductService
     {
         private readonly PharmaMDbContext context;
 
@@ -21,42 +22,49 @@ namespace PharmaM.Core.Services
             {
                 Name = model.Name,
                 ImageURL = model.ImagePath,
-                Description=model.Description,
-                NeedsPrescription=model.NeedsPrescription,
-                Price=model.Price,
-                //Category = model.Categories.Name,
-                CategoryId=model.CategoryId,
+                Description = model.Description,
+                NeedsPrescription = model.NeedsPrescription,
+                Price = model.Price,
+                //Categories.Name = model.Categories.Name,
+                CategoryId = model.CategoryId,
+
             };
-          
+
             await context.Products.AddAsync(newProduct);
             await context.SaveChangesAsync();
         }
 
-        
-        public  async Task EditProductAsync(SingleProductViewModel model, int id)
+
+        public async Task DeleteProductAsync(int id)
         {
-            var product = await context.Products.FindAsync(id);
-            if (product != null)
-            {
-                product.Name = model.Name;
-                product.Price = model.Price;
-                product.NeedsPrescription = model.NeedsPrescription;
-                product.ImageURL = model.ImagePath;
-                product.Description = model.Description;
-                product.CategoryId = model.CategoryId;
-                product.Category.Name = model.CategoryName;
-              
-                await context.SaveChangesAsync();
-            }
+            var entity = await GetEntityById(id);
+
+            context.Remove(entity);
+            await context.SaveChangesAsync();
         }
-       
+
+        public async Task EditProductAsync(SingleProductViewModel model)
+        {
+            var entity = await GetEntityById(model.Id);
+
+            entity.Name = model.Name;
+            entity.Price = model.Price;
+            entity.NeedsPrescription = model.NeedsPrescription;
+            entity.ImageURL = model.ImagePath;
+            entity.Description = model.Description;
+            entity.CategoryId = model.CategoryId;
+            //product.Category.Name = model.CategoryName;
+
+            await context.SaveChangesAsync();
+        }
+
 
         public async Task<IEnumerable<Product>> Filter(int? minPrice, int? maxPrice)
         {
-               var filteredProducts = await context.Products
-                .Where(p => (minPrice == null || p.Price >= minPrice)
-                && (maxPrice == null || p.Price <= maxPrice))
-                .ToListAsync();
+            var filteredProducts = await context.Products
+             .Where(p => (minPrice == null || p.Price >= minPrice)
+             && (maxPrice == null || p.Price <= maxPrice))
+             .ToListAsync();
 
             return filteredProducts;
         }
@@ -67,24 +75,26 @@ namespace PharmaM.Core.Services
             return data;
         }
 
-        public async  Task<Product> GetProductById(int id)
+        public async Task<Product> GetProductById(int id)
         {
-            var data= await context.Products
+            var data = await context.Products
                 .Where(p => p.Id == id)
-                .Select(p=> new Product()
+                .Select(p => new Product()
                 {
                     Id = p.Id,
                     Name = p.Name,
                     ImageURL = p.ImageURL,
                     Description = p.Description,
-                    CategoryId = p.CategoryId
+                    CategoryId = p.CategoryId,
+                    Category = p.Category
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
             return data;
         }
 
-
+       
         public async Task<IEnumerable<Product>> Search(string searchString)
         {
             var data = await GetAllAsync();
@@ -114,6 +124,16 @@ namespace PharmaM.Core.Services
                 _ => data,// If the order is not recognized, return the original data
             };
 
+        }
+
+        private async Task<Product> GetEntityById(int id)
+        {
+            var entity = await context.FindAsync<Product>(id);
+            if (entity == null)
+            {
+                throw new ApplicationException("Invalid Product");
+            }
+            return entity;
         }
     }
 }
