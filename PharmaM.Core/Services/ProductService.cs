@@ -25,23 +25,25 @@ namespace PharmaM.Core.Services
                 Description = model.Description,
                 NeedsPrescription = model.NeedsPrescription,
                 Price = model.Price,
-                //Categories.Name = model.Categories.Name,
                 CategoryId = model.CategoryId,
 
             };
 
             await context.Products.AddAsync(newProduct);
             await context.SaveChangesAsync();
+
+          
         }
 
 
         public async Task DeleteProductAsync(int id)
         {
-            var entity = await GetEntityById(id);
-
-            context.Remove(entity);
+            Product product = await context.Products.FindAsync(id);
+            context.Products.Remove(product);
             await context.SaveChangesAsync();
         }
+
+       
 
         public async Task EditProductAsync(SingleProductViewModel model)
         {
@@ -53,7 +55,7 @@ namespace PharmaM.Core.Services
             entity.ImageURL = model.ImagePath;
             entity.Description = model.Description;
             entity.CategoryId = model.CategoryId;
-            //product.Category.Name = model.CategoryName;
+         
 
             await context.SaveChangesAsync();
         }
@@ -86,7 +88,7 @@ namespace PharmaM.Core.Services
                     ImageURL = p.ImageURL,
                     Description = p.Description,
                     CategoryId = p.CategoryId,
-                    Category = p.Category
+                                       
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
@@ -128,12 +130,32 @@ namespace PharmaM.Core.Services
 
         private async Task<Product> GetEntityById(int id)
         {
-            var entity = await context.FindAsync<Product>(id);
+            Product? entity = await context.FindAsync<Product>(id);
             if (entity == null)
             {
                 throw new ApplicationException("Invalid Product");
             }
             return entity;
         }
+
+      
+        private async Task<IEnumerable<CategoryViewModel>> GetCategories()
+        {
+            return await context.Categories
+                .AsNoTracking()
+                .Select(c => new CategoryViewModel
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                })
+                .ToListAsync();
+        }
+
+        private async Task<IEnumerable<Category>> GetAllCategoryAsync()
+        {
+            var data = await context.Categories.ToListAsync();
+            return data;
+        }
+
     }
 }

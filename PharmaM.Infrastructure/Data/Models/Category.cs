@@ -18,8 +18,6 @@ public class Category
     [MaxLength(CategoryNameMaxLength)]
     public string Name { get; set; } = string.Empty;
 
-    [Comment("Product Name")]
-    public int ProductId { get; set; }
-    [ForeignKey(nameof(ProductId))]
     public List<Product> Products { get; set; } = new List<Product>();
+
 }

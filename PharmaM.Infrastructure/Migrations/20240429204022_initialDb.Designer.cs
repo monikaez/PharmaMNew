@@ -265,10 +265,7 @@ namespace PharmaM.Infrastructure.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasComment("Category Name");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int")
-                        .HasComment("Product Name");
-
+                   
                     b.HasKey("Id");
 
                     b.ToTable("Categories");

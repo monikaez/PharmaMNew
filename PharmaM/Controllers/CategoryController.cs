@@ -2,6 +2,7 @@
 using PharmaM.Core.Contracts;
 using PharmaM.Core.Models.Category;
 using PharmaM.Core.Services;
+using PharmaM.Infrastructure.Data.Models;
 
 namespace PharmaM.Controllers
 {
@@ -35,5 +36,7 @@ namespace PharmaM.Controllers
             await categoryService.AddCategoryAsync(model);
             return View(model);
         }
+
+      
     }
 }

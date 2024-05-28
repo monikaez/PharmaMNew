@@ -29,5 +29,6 @@ namespace PharmaM.Core.Models.Product
         public int CategoryId { get; set; }
 
         public IEnumerable<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
+
     }
 }

@@ -24,6 +24,8 @@ namespace PharmaM.Controllers
             var data = await _productService.GetAllAsync();
             return View(data);
         }
+
+        
         public IActionResult About()
         {
             return View();

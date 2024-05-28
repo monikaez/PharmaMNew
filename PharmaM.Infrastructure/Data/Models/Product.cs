@@ -42,6 +42,7 @@ public class Product
     [Required]
     public int CategoryId { get; set; }
 
+    [Required]
     [ForeignKey(nameof(CategoryId))]
     [Comment("Category of the product")]
     public Category Category { get; set; } = null!;
