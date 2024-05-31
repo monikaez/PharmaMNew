@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> UserManager;
+
+
+@{
+    //Getting the logged in user's First Name.
+    var isAuthenticated = User.Identity.IsAuthenticated;
+    var user = isAuthenticated ? await UserManager.GetUserAsync(User) : null;
+    var firstName = user?.FirstName ?? "Guest"; //If not authenticated, User name will be Guest
+}
+
+
+@if (isAuthenticated)
+{
+    <li class="has-children" style="margin-left : 270px;">
+        <a>Hello <span style="font-weight: bold;">@firstName</span> !</a>
+        <ul class="dropdown">
+            <li class="has-children">
+            <li><a asp-controller="Order" asp-action="MyOrders">My Orders</a></li>
+            <li><a asp-controller="ApplicationUser" asp-action="LogOut">Log Out</a></li>
+        </ul>
+    </li>
+}
+else
+{
+    <li class="has-children" style="margin-left : 270px;">
+        <a>Hello <span style="font-weight: bold;">Guest</span> !</a>
+        <ul class="dropdown">
+            <li class="has-children">
+            <li><a asp-controller="ApplicationUser" asp-action="LogIn">Log In</a></li>
+            <li><a asp-controller="ApplicationUser" asp-action="SignUp">Sign Up</a></li>
+        </ul>
+    </li>
+}

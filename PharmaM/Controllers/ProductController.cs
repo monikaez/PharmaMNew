@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PharmaM.Core.Contracts;
-using PharmaM.Core.Models.Product;
 using PharmaM.Core.Models.Category;
-using PharmaM.Infrastructure.Data.Models;
+using PharmaM.Core.Models.Product;
 
 namespace PharmaM.Controllers
 {
@@ -22,11 +21,33 @@ namespace PharmaM.Controllers
             return View(data);
         }
 
+        //[HttpGet]
+        //public IActionResult Add()
+        //{
+        //    var model = new AddProductViewModel();
+
+        //    return View(model);
+        //}
+
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             var model = new AddProductViewModel();
-            
+
+            var categories = await productService.GetCategories();
+
+            var viewModelCategories = new List<CategoryViewModel>();
+
+            foreach (var item in categories)
+            {
+                viewModelCategories.Add(new CategoryViewModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                });
+
+            }
+            model.Categories = viewModelCategories;
             return View(model);
         }
 
@@ -105,6 +126,8 @@ namespace PharmaM.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await productService.DeleteProductAsync(id);
+
+            TempData["success"] = "A Product Deleted";
             return RedirectToAction(nameof(Shop));
         }
 

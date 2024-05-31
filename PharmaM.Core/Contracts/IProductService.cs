@@ -1,4 +1,5 @@
-﻿using PharmaM.Core.Models.Product;
+﻿using PharmaM.Core.Models.Category;
+using PharmaM.Core.Models.Product;
 using PharmaM.Infrastructure.Data.Models;
 
 namespace PharmaM.Core.Contracts
@@ -13,6 +14,7 @@ namespace PharmaM.Core.Contracts
         Task AddProductAsync(AddProductViewModel model);
         Task EditProductAsync(SingleProductViewModel model);
         Task DeleteProductAsync(int id);
-        
+
+       Task <List<Category>> GetCategories();
     }
 }

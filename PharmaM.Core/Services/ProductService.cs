@@ -26,9 +26,10 @@ namespace PharmaM.Core.Services
                 NeedsPrescription = model.NeedsPrescription,
                 Price = model.Price,
                 CategoryId = model.CategoryId,
+                
 
             };
-
+            
             await context.Products.AddAsync(newProduct);
             await context.SaveChangesAsync();
 
@@ -38,7 +39,7 @@ namespace PharmaM.Core.Services
 
         public async Task DeleteProductAsync(int id)
         {
-            Product product = await context.Products.FindAsync(id);
+            Product? product = await context.Products.FindAsync(id);
             context.Products.Remove(product);
             await context.SaveChangesAsync();
         }
@@ -139,23 +140,11 @@ namespace PharmaM.Core.Services
         }
 
       
-        private async Task<IEnumerable<CategoryViewModel>> GetCategories()
+        public async Task <List<Category>> GetCategories()
         {
             return await context.Categories
                 .AsNoTracking()
-                .Select(c => new CategoryViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
                 .ToListAsync();
         }
-
-        private async Task<IEnumerable<Category>> GetAllCategoryAsync()
-        {
-            var data = await context.Categories.ToListAsync();
-            return data;
-        }
-
     }
 }
